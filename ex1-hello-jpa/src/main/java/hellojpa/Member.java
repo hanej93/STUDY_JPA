@@ -21,6 +21,14 @@ public class Member {
 //    @JoinColumn(name = "LOCKER_ID")
 //    private Locker locker;
 
+
+    public Member() {}
+
+    public Member(Long id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
     public Long getId() {
         return id;
     }

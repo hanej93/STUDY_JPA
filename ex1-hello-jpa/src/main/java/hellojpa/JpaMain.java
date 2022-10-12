@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -15,8 +16,12 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member findMember = em.find(Member.class, 1L);
-            findMember.setUsername("HelloJPA");
+
+            // 영속
+            Member member = em.find(Member.class, 150L);
+            em.detach(member);
+            em.merge(member);
+            Member member2 = em.find(Member.class, 150L);
 
             tx.commit();
         } catch (Exception e) {
