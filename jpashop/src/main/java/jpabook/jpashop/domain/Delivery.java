@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Delivery {
 
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long Id;
 
     private String city;
