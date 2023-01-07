@@ -49,11 +49,4 @@ public class Member {
         this.team = team;
     }
 
-    public Locker getLocker() {
-        return locker;
-    }
-
-    public void setLocker(Locker locker) {
-        this.locker = locker;
-    }
 }
