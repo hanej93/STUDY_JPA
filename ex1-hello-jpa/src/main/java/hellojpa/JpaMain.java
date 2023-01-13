@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -15,15 +16,37 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Address address = new Address("city", "street", "10000");
 
-            Member member1 = new Member();
-            member1.setUsername("member1");
-            member1.setHomeAddress(address);
-            em.persist(member1);
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setHomeAddress(new Address("homecity", "street", "10000"));
 
-            Address newAddress = new Address("newCity", address.getStreet(), address.getZipcode());
-            member1.setHomeAddress(newAddress);
+            member.getFavoriteFood().add("치킨");
+            member.getFavoriteFood().add("족발");
+            member.getFavoriteFood().add("피자");
+
+            member.getAddressHistory().add(new AddressEntity("old1", "street1", "10001"));
+            member.getAddressHistory().add(new AddressEntity("old2", "street2", "10002"));
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            System.out.println("!! START ================");
+            Member findMember = em.find(Member.class, member.getId());
+
+            // homeCity -> newCity
+//            Address findAddress = findMember.getHomeAddress();
+//            Address newAddress = new Address("newCity", findAddress.getStreet(), findAddress.getZipcode());
+//            findMember.setHomeAddress(newAddress);
+//
+//            // 치킨 -> 한식
+//            findMember.getFavoriteFood().remove("치킨");
+//            findMember.getFavoriteFood().add("한식");
+
+//            findMember.getAddressHistory().remove(new AddressEntity("old1", "street1", "10001"));
+//            findMember.getAddressHistory().add(new AddressEntity("newold1", "street1", "10001"));
 
             tx.commit();
         } catch (Exception e) {
