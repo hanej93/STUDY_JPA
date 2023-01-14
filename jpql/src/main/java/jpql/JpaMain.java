@@ -14,26 +14,27 @@ public class JpaMain {
 
         try {
 
-            for (int i = 0; i < 100; i++) {
-                Member member = new Member();
-                member.setUsername("member" + i);
-                member.setAge(i);
-                em.persist(member);
-            }
+            Team team = new Team();
+            team.setName("member1");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member" + 1);
+            member.setAge(20);
+            member.setTeam(team);
+
+            em.persist(member);
 
             em.flush();
             em.clear();
 
 
-            String sql = "select m " +
+            String sql = "select m" +
                     "   from Member m " +
-                    "   order by m.age desc";
+                    "   left join Team t on m.username = t.name";
             List<Member> resultList = em.createQuery(sql, Member.class)
-                    .setFirstResult(10)
-                    .setMaxResults(20)
                     .getResultList();
 
-            System.out.println("resultList.size() = " + resultList.size());
             for (Member m : resultList) {
                 System.out.println("m = " + m);
             }
