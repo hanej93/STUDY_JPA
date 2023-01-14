@@ -28,7 +28,6 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-
             String sql = "select m" +
                     "   from Member m " +
                     "   left join Team t on m.username = t.name";
@@ -38,7 +37,6 @@ public class JpaMain {
             for (Member m : resultList) {
                 System.out.println("m = " + m);
             }
-
 
             tx.commit();
         } catch (Exception e) {
