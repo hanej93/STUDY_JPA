@@ -2,6 +2,7 @@ package jpql;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -21,6 +22,7 @@ public class JpaMain {
             Member member = new Member();
             member.setUsername("member" + 1);
             member.setAge(20);
+            member.setType(MemberType.ADMIN);
             member.setTeam(team);
 
             em.persist(member);
@@ -28,14 +30,18 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String sql = "select m" +
+            String sql = "select m.username, m.type, 'HELLO', TRUE " +
                     "   from Member m " +
-                    "   left join Team t on m.username = t.name";
-            List<Member> resultList = em.createQuery(sql, Member.class)
+                    "   where m.type = :userType";
+            List<Object[]> resultList = em.createQuery(sql)
+                    .setParameter("userType", MemberType.ADMIN)
                     .getResultList();
 
-            for (Member m : resultList) {
-                System.out.println("m = " + m);
+            for (Object[] objects : resultList) {
+                System.out.println("objects[0] = " + objects[0]);
+                System.out.println("objects[0] = " + objects[1]);
+                System.out.println("objects[0] = " + objects[2]);
+                System.out.println("objects[0] = " + objects[3]);
             }
 
             tx.commit();
