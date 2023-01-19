@@ -18,6 +18,10 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
     // 기간 Period
     @Embedded
     private Period workPeriod;
@@ -89,5 +93,25 @@ public class Member {
 
     public void setAddressHistory(List<AddressEntity> addressHistory) {
         this.addressHistory = addressHistory;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", workPeriod=" + workPeriod +
+                ", homeAddress=" + homeAddress +
+                ", favoriteFood=" + favoriteFood +
+                ", addressHistory=" + addressHistory +
+                '}';
     }
 }
