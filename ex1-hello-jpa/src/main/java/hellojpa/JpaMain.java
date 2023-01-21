@@ -48,27 +48,18 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String sql = "select t From Team t join t.members";
-//            String sql = "select m From Member m";
-            List<Team> resultList = em.createQuery(sql, Team.class).getResultList();
+            String sql = "select t From Team t";
+            List<Team> resultList = em.createQuery(sql, Team.class)
+                    .setFirstResult(0)
+                    .setMaxResults(2)
+                    .getResultList();
 
-//            System.out.println("resultList = " + resultList);
-            
             for (Team t : resultList) {
-//                System.out.println("m = " + m.getUsername() + " ||| m.getTeam().getName() = " + m.getTeam().getName());
-                System.out.println("teamName = " + t.getName() + " ||| members = " + t.getMembers().size());
-                for( Member m : t.getMembers()) {
-                    System.out.println("-> m = " + m);
+                System.out.println("t = " + t.getName());
+                for (Member tMember : t.getMembers()) {
+                    System.out.println("tMember = " + tMember.getUsername());
                 }
 
-                // Case 1 member만 단독 조회시 (FetchType.LAZY)
-                // 회원
-                // 회원1, 팀A(SQL)
-                // 회원2, 팀A(1차캐시)
-                // 회원3, 팀B(SQL)
-                // N+1번 조회!!
-                
-                // join fetch -> 멤버와 팀을 조인해서 모든(멤버, 팀) 결과를 가져옴 한번 수행
             }
 
             tx.commit();

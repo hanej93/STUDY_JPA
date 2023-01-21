@@ -22,20 +22,20 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    // 기간 Period
-    @Embedded
-    private Period workPeriod;
+//    // 기간 Period
+//    @Embedded
+//    private Period workPeriod;
+//
+//    // 주소
+//    @Embedded
+//    private Address homeAddress;
 
-    // 주소
-    @Embedded
-    private Address homeAddress;
-
-    @ElementCollection
-    @CollectionTable(name = "FAVORITE_FOOD", joinColumns =
-        @JoinColumn(name = "MEMBER_ID")
-    )
-    @Column(name = "FOOD_NAME")
-    private Set<String> favoriteFood = new HashSet<>();
+//    @ElementCollection
+//    @CollectionTable(name = "FAVORITE_FOOD", joinColumns =
+//        @JoinColumn(name = "MEMBER_ID")
+//    )
+//    @Column(name = "FOOD_NAME")
+//    private Set<String> favoriteFood = new HashSet<>();
 
 //    @ElementCollection
 //    @CollectionTable(name = "ADDRESS", joinColumns =
@@ -43,9 +43,9 @@ public class Member {
 //    )
 //    private List<Address> addressHistory = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "MEMBER_ID")
-    private List<AddressEntity> addressHistory = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "MEMBER_ID")
+//    private List<AddressEntity> addressHistory = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -63,38 +63,6 @@ public class Member {
         this.username = username;
     }
 
-    public Period getWorkPeriod() {
-        return workPeriod;
-    }
-
-    public void setWorkPeriod(Period workPeriod) {
-        this.workPeriod = workPeriod;
-    }
-
-    public Address getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public Set<String> getFavoriteFood() {
-        return favoriteFood;
-    }
-
-    public void setFavoriteFood(Set<String> favoriteFood) {
-        this.favoriteFood = favoriteFood;
-    }
-
-    public List<AddressEntity> getAddressHistory() {
-        return addressHistory;
-    }
-
-    public void setAddressHistory(List<AddressEntity> addressHistory) {
-        this.addressHistory = addressHistory;
-    }
-
     public Team getTeam() {
         return team;
     }
@@ -108,10 +76,6 @@ public class Member {
         return "Member{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", workPeriod=" + workPeriod +
-                ", homeAddress=" + homeAddress +
-                ", favoriteFood=" + favoriteFood +
-                ", addressHistory=" + addressHistory +
                 '}';
     }
 }

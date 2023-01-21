@@ -1,5 +1,7 @@
 package hellojpa;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ public class Team extends BaseEntity {
     private Long id;
     private String name;
 
+//    @BatchSize(size = 100) 개별적용-> global로 이동
     @OneToMany(mappedBy = "team") // Member의 변수명
     private List<Member> members = new ArrayList<>();
 
